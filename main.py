@@ -1,80 +1,50 @@
-balance = 0
 
 
-def Deposit ():
-    deposit = int(input("Enter amount you would like to Deposit: "))
-    userbal = 0
-    if  deposit < int(50):
-         print("Sorry you can't deposit money less than 50 shillings")
+class Account():
+     def __init__(self,name,id,balance):
+          self.username = name
+          self.account_number = id
+          self.balance = balance
 
-    elif deposit > int(500000):
-         print("Sorry you can't deposit money exceding 500000")
+#including a Deposit method
 
-    else:
-         userbal = userbal + deposit
-         print("Confirm you have succesfully deposited shillings",deposit,"to your account your new balance is shillings",userbal)
-         exit()
+     def Deposit(self,amount):
+          self.balance += amount
+          print(f"{self.username} Deposited {amount}$. Current balance is {self.balance}")
 
+#including a withdrawal method
 
-def Withdraw():
-    min_limit = userbal + transaction
-    userbal = 30000
-    transaction = 50
-    withdraw = int(input("Enter amount you would like to Withdraw: "))
-    if withdraw < min_limit:
-         print("sorry you have insufficient Balance, your account balance is:",userbal)
-    elif withdraw <= int(99):
-         print("Sorry you can't withdraw money less than 100 shillings")
-    elif withdraw >= int(300001):
-         print("Sorry you can't withdraw money exceding 300000")
-    else:
-         userbal = userbal - int(withdraw)
-         userbal = userbal - transaction
-         print("Confirm you have succesfully deposited shillings",withdraw,"to your account your new balance is shillings",userbal)
+     def Withdrawal(self,amount):
+          if self.balance >= amount:
+               self.balance -= amount
+               print(f"(self.username) Withdrew {amount}$. Current balance is {self.balance}")
 
-         exit()
+          else:
+               print("You don't have enough funds to Withdraw")
 
+#including a child class to calculate the interest rate for our account
 
-def Checkbal():
-     verify = input("Please verify password to check balance: ")
-     if verify == password:
-          print(balance)
-     else:
-          print("Incorrect password")
-          exit()
+class Savings_Account(Account):
+     def __init__(self,name,id,balance,interest_rate):
+          super().__init__(name,id,balance)
+          self.interest_rate = interest_rate
 
-username = "Sam"
-password ="123"
+     def add_interest(self):
+          interest = self.balance * self.interest_rate
+          self.Deposit(interest)
 
-def Authencication():
-        if fname == username and pwd == password:
-             print("Welcome back",fname)
-        else:
-             print("Incorrect password")
-             exit()
+# Interacting and testing the program
 
-        
+account1 = Account("John","1234456",1000)
+account1.Deposit(500)
+account1.Withdrawal(200)
 
+print()
 
+Savings_account = Savings_Account("Viny","6723112",2000,0.9)
+Savings_account.Deposit(1000)
+Savings_account.add_interest()
+Savings_account.Withdrawal(500)
+Savings_account.Withdrawal(1000)
+Savings_account.Withdrawal(5000)
 
-print("Welcome to M-Banking ")
-fname = input("Enter Username: ")
-pwd = input("Enter password: ")
-Authencication()
-
-
-print("Kindly choose which service you would like to access")
-print("1.DEPOSIT")
-print("2.WITHDRAWAL")
-print("3.CHECK BALANCE")
-options = input(": ")
-
-if options == "1":
-     Deposit()
-elif options == "2":
-     Withdraw()
-elif options == "3":
-     Checkbal()
-else:
-     print("Invalid input")
-     exit()
